@@ -1,59 +1,53 @@
 ﻿using System;
 
-class DistributeurDeBoissons
+class DistributeurBoissons
 {
+    const int LIMITE_MAX = 3;
+
     static void Main()
     {
-        int stock1 = 0;
-        int stock2 = 2;
-        int stock3 = 3;
-        int choix;
+        int[] stocks = { 3, 0, 2 };
+        string[] noms = { "Eau", "Soda", "Orangeade" };
 
-        do
+        int totalStock = 0;
+        for (int i = 0; i < LIMITE_MAX; i++)
         {
-            Console.WriteLine("Choisissez une boisson. Boisson1: 1, Boisson2: 2, Boisson3: 3, FINIR : 4");
+            totalStock += stocks[i];
+        }
+
+        int choix = 0;
+
+        while (totalStock > 0 && choix != 4)
+        {
+            Console.WriteLine("Choisissez une boisson.");
+            for (int i = 0; i < LIMITE_MAX; i++)
+            {
+                Console.WriteLine($"{noms[i]} : {i + 1}");
+            }
+            Console.WriteLine("FINIR : 4");
+
             choix = int.Parse(Console.ReadLine());
 
-            if (choix == 1)
+            if (choix != 4)
             {
-                if (stock1 > 0)
+                if (stocks[choix - 1] > 0)
                 {
-                    Console.WriteLine("Voici votre boisson1, santé!");
-                    stock1--;
+                    Console.WriteLine($"Voici votre {noms[choix - 1]}, santé!");
+                    stocks[choix - 1]--;
                 }
                 else
                 {
-                    Console.WriteLine("Plus de boisson1");
-                }
-            }
-            else if (choix == 2)
-            {
-                if (stock2 > 0)
-                {
-                    Console.WriteLine("Voici votre boisson2, santé!");
-                    stock2--;
-                }
-                else
-                {
-                    Console.WriteLine("Plus de boisson2");
-                }
-            }
-            else if (choix == 3)
-            {
-                if (stock3 > 0)
-                {
-                    Console.WriteLine("Voici votre boisson3, santé!");
-                    stock3--;
-                }
-                else
-                {
-                    Console.WriteLine("Plus de boisson3");
+                    Console.WriteLine($"Plus de {noms[choix - 1]}");
                 }
             }
 
-        } while ((stock1 + stock2 + stock3) > 0 && choix != 4);
+            totalStock = 0;
+            for (int i = 0; i < LIMITE_MAX; i++)
+            {
+                totalStock += stocks[i];
+            }
+        }
 
         Console.WriteLine("Merci d'utiliser distributeur 3000!");
     }
 }
-
